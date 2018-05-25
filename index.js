@@ -35,7 +35,7 @@ class Crawler {
   async mongoSetNewChannels (channelIdList) {
     let db = await mongo.getDB()
     channelIdList.forEach(channelId => {
-      db.collection('crawled').insertOne({channelId, crawled: false}).catch(console.error) // duplicates will throw an error
+      db.collection('crawled').insertOne({channelId, crawled: false}).catch(() => {}) // duplicates will throw an error
     })
   }
 
