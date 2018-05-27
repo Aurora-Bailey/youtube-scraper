@@ -15,7 +15,7 @@ class Crawler {
     // setup
     this.start = Date.now()
     this.usedQueries = 0
-    this.dailyQuota = 2e5 // 200k
+    this.dailyQuota = 1.5e5 // 150k
 
     // internal config
     this.capSubsAt = 500
