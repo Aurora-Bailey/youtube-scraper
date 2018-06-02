@@ -62,7 +62,7 @@ class Crawler {
     } catch (err) {
       this.mongoSetChannelSubscriptions(channelId, [], err.code).catch(err => { console.error(err)})
       let queryTime = '' + (Date.now() - pullStartTime)
-      console.log(`${this.crawlerId} err:${err.code} t:${queryTime}`)
+      console.log(chalk.red(`${this.crawlerId} err:${err.code} t:${queryTime}`))
       // console.log(`${chalk.bgRedBright(this.crawlerId + ' ' + err.code)} query-time: ${queryTime > 1000 ? chalk.cyan(queryTime) : queryTime}ms`)
     } finally {
       setTimeout(() => { this.next() }, this.pace())
