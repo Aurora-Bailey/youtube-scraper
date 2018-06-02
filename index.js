@@ -1,6 +1,7 @@
 const {google} = require('googleapis')
 const credentials = require('./credentials.json')
 const mongo = require('./mongo')
+const chalk = require('chalk')
 const youtube = google.youtube({
   version: 'v3',
   auth: credentials.youtube
@@ -54,7 +55,7 @@ class Crawler {
       this.mongoSetNewChannels(subscriptions).catch(err => { console.error(err)})
       this.mongoSetChannelSubscriptions(channelId, subscriptions, false).catch(err => { console.error(err)})
       let pullDataTime = Date.now()
-      console.log(`${this.crawlerId} ${channelId} mongodb: ${pullChannelTime - pullStartTime}ms youtube-aip: ${pullDataTime - pullChannelTime}ms`)
+      console.log(`${this.crawlerId} ${channelId} mongodb: ${chalk.red(pullChannelTime - pullStartTime)}ms youtube-aip: ${chalk.cyan(pullDataTime - pullChannelTime)}ms`)
     } catch (err) {
       this.mongoSetChannelSubscriptions(channelId, [], err.code).catch(err => { console.error(err)})
       console.log(this.crawlerId, err.code)
