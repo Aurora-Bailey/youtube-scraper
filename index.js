@@ -46,12 +46,15 @@ class Crawler {
   }
 
   async next () {
+    let pullStartTime = Date.now()
     let channelId = await this.mongoGetNextChannel().catch(err => { console.error(err); process.exit(0) }) // fatal errror
+    let pullChannelTime = Date.now()
     try {
       let subscriptions = await this.getChannelSubscriptions(channelId)
       this.mongoSetNewChannels(subscriptions).catch(err => { console.error(err)})
       this.mongoSetChannelSubscriptions(channelId, subscriptions, false).catch(err => { console.error(err)})
-      console.log(this.crawlerId, channelId)
+      let pullDataTime = Date.now()
+      console.log(`${this.crawlerId} ${channelId} mongodb: ${pullChannelTime - pullStartTime}ms youtube-aip: ${pullDataTime - pullChannelTime}ms`)
     } catch (err) {
       this.mongoSetChannelSubscriptions(channelId, [], err.code).catch(err => { console.error(err)})
       console.log(this.crawlerId, err.code)
