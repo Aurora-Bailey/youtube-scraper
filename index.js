@@ -55,7 +55,10 @@ class Crawler {
       this.mongoSetNewChannels(subscriptions).catch(err => { console.error(err)})
       this.mongoSetChannelSubscriptions(channelId, subscriptions, false).catch(err => { console.error(err)})
       let pullDataTime = Date.now()
-      console.log(`${this.crawlerId} ${channelId} mongodb: ${chalk.red(pullChannelTime - pullStartTime)}ms youtube-aip: ${chalk.cyan(pullDataTime - pullChannelTime)}ms`)
+      let channelTime = '' + (pullChannelTime - pullStartTime)
+      let dataTime = '' + (pullDataTime - pullChannelTime)
+      console.log(`${this.crawlerId} ${channelId} mongodb:${chalk.red(channelTime.substr(-3, -10))}${channelTime.substr(-3, 3)}ms
+      youtube-aip: ${chalk.cyan(dataTime.substr(-3, -10))}${dataTime.substr(-3, 3)}ms`)
     } catch (err) {
       this.mongoSetChannelSubscriptions(channelId, [], err.code).catch(err => { console.error(err)})
       console.log(this.crawlerId, err.code)
