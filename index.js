@@ -57,11 +57,11 @@ class Crawler {
       let pullDataTime = Date.now()
       let channelTime = '' + (pullChannelTime - pullStartTime)
       let dataTime = '' + (pullDataTime - pullChannelTime)
-      console.log(`${this.crawlerId} ${channelId} mongodb:${chalk.red(channelTime.substr(-3, -10))}${channelTime.substr(-3, 3)}ms
-      youtube-aip: ${chalk.cyan(dataTime.substr(-3, -10))}${dataTime.substr(-3, 3)}ms`)
+      console.log(`${this.crawlerId} ${channelId} mongodb:${channelTime > 1000 ? chalk.red(channelTime) : channelTime}ms youtube-aip: ${dataTime > 1000 ? chalk.cyan(dataTime) : dataTime}ms`)
     } catch (err) {
       this.mongoSetChannelSubscriptions(channelId, [], err.code).catch(err => { console.error(err)})
-      console.log(this.crawlerId, err.code)
+      let queryTime = '' + (Date.now() - pullStartTime)
+      console.log(`${chalk.bgRedBright(this.crawlerId)} ${err.code} query-time: ${queryTime > 1000 ? chalk.cyan(queryTime) : queryTime}ms`)
     } finally {
       setTimeout(() => { this.next() }, this.pace())
     }
