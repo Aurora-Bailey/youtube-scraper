@@ -2,10 +2,6 @@ const {google} = require('googleapis')
 const credentials = require('./credentials.json')
 const mongo = require('./mongo')
 const chalk = require('chalk')
-const youtube = google.youtube({
-  version: 'v3',
-  auth: credentials.youtube
-})
 
 class Crawler {
   constructor (options) {
