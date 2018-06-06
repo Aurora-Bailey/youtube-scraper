@@ -12,7 +12,7 @@ class Crawler {
     // setup
     this.start = Date.now()
     this.usedQueries = 0
-    this.dailyQuota = 1e5 // 100k
+    this.dailyQuota = 5e4 // 50k
   }
 
   run () {
@@ -102,14 +102,14 @@ setTimeout(() => { let crawler7 = new Crawler({ crawlerId: 7, apiKey: credential
 setTimeout(() => { let crawler8 = new Crawler({ crawlerId: 8, apiKey: credentials["youtube-scraper-8"] }); crawler8.run() }, Math.random() * 2000)
 setTimeout(() => { let crawler9 = new Crawler({ crawlerId: 9, apiKey: credentials["youtube-scraper-9"] }); crawler9.run() }, Math.random() * 2000)
 setTimeout(() => { let crawler10 = new Crawler({ crawlerId: 10, apiKey: credentials["youtube-scraper-10"] }); crawler10.run() }, Math.random() * 2000)
-//
-// setTimeout(() => { let crawler1 = new Crawler({ crawlerId: 11, apiKey: credentials["youtube-scraper-1"] }); crawler1.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler2 = new Crawler({ crawlerId: 12, apiKey: credentials["youtube-scraper-2"] }); crawler2.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler3 = new Crawler({ crawlerId: 13, apiKey: credentials["youtube-scraper-3"] }); crawler3.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler4 = new Crawler({ crawlerId: 14, apiKey: credentials["youtube-scraper-4"] }); crawler4.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler5 = new Crawler({ crawlerId: 15, apiKey: credentials["youtube-scraper-5"] }); crawler5.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler6 = new Crawler({ crawlerId: 16, apiKey: credentials["youtube-scraper-6"] }); crawler6.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler7 = new Crawler({ crawlerId: 17, apiKey: credentials["youtube-scraper-7"] }); crawler7.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler8 = new Crawler({ crawlerId: 18, apiKey: credentials["youtube-scraper-8"] }); crawler8.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler9 = new Crawler({ crawlerId: 19, apiKey: credentials["youtube-scraper-9"] }); crawler9.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler10 = new Crawler({ crawlerId: 20, apiKey: credentials["youtube-scraper-10"] }); crawler10.run() }, Math.random() * 2000)
+
+setTimeout(() => { let crawler1 = new Crawler({ crawlerId: 11, apiKey: credentials["youtube-scraper-1"] }); crawler1.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler2 = new Crawler({ crawlerId: 12, apiKey: credentials["youtube-scraper-2"] }); crawler2.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler3 = new Crawler({ crawlerId: 13, apiKey: credentials["youtube-scraper-3"] }); crawler3.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler4 = new Crawler({ crawlerId: 14, apiKey: credentials["youtube-scraper-4"] }); crawler4.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler5 = new Crawler({ crawlerId: 15, apiKey: credentials["youtube-scraper-5"] }); crawler5.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler6 = new Crawler({ crawlerId: 16, apiKey: credentials["youtube-scraper-6"] }); crawler6.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler7 = new Crawler({ crawlerId: 17, apiKey: credentials["youtube-scraper-7"] }); crawler7.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler8 = new Crawler({ crawlerId: 18, apiKey: credentials["youtube-scraper-8"] }); crawler8.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler9 = new Crawler({ crawlerId: 19, apiKey: credentials["youtube-scraper-9"] }); crawler9.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler10 = new Crawler({ crawlerId: 20, apiKey: credentials["youtube-scraper-10"] }); crawler10.run() }, Math.random() * 2000)
