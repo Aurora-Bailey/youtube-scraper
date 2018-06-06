@@ -30,25 +30,30 @@ class Crawler {
   async mongoGet50Channels () {
     let channels = []
     for (var i = 0; i < 50; i++) {
-      let channelId = await this.mongoGetNextChannel()
-      channels.push(channelId)
+      try {
+        let channelId = await this.mongoGetNextChannel()
+        channels.push(channelId)
+      } catch (e) {
+        console.log(e)
+      }
     }
     return channels
   }
 
-  async mongoSetChannelInfo (channelId, info, error) {
+  async mongoSetChannelInfo (channelId, info) {
     let db = await mongo.getDB()
-    db.collection('channel_info').insertOne({channelId, info, error})
+    db.collection('channel_info').insertOne({channelId, crawlDate: Date.now(), info})
   }
 
   async next () {
     let pullStartTime = Date.now()
-    let channelIds = await this.mongoGet50Channels().catch(err => { console.error(err); process.exit(0) }) // fatal errror
+    let channelIds = await this.mongoGet50Channels() //.catch(err => { console.error(err); process.exit(0) }) // fatal errror
+    if (channelIds.length === 0) return false
     let pullChannelTime = Date.now()
     try {
       let channelInfoArray = await this.getChannelInfo(channelIds)
       channelInfoArray.forEach((info) => {
-        this.mongoSetChannelInfo(info.id, info, false).catch(err => { console.error(err)})
+        this.mongoSetChannelInfo(info.id, info).catch(err => { console.error(err)})
       })
       let pullDataTime = Date.now()
       let channelTime = '' + (pullChannelTime - pullStartTime)
@@ -77,9 +82,9 @@ class Crawler {
   async getChannelInfo (channelIds) {
     this.usedQueries++
     let res = await this.youtube.channels.list({
-      part: 'id,snippet,statistics,brandingSettings',
+      part: 'id,snippet,statistics',
       maxResults: 50,
-      fields: 'items(id,snippet(title,description,thumbnails(default,high)),statistics(viewCount,subscriberCount,videoCount),brandingSettings(image(bannerImageUrl)))',
+      fields: 'items(id,snippet(title,description,thumbnails(default,high)),statistics(viewCount,subscriberCount,videoCount))',
       id: channelIds.join(',')
     })
     return res.data.items
@@ -88,15 +93,15 @@ class Crawler {
 }
 
 setTimeout(() => { let crawler1 = new Crawler({ crawlerId: 1, apiKey: credentials["youtube-scraper-1"] }); crawler1.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler2 = new Crawler({ crawlerId: 2, apiKey: credentials["youtube-scraper-2"] }); crawler2.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler3 = new Crawler({ crawlerId: 3, apiKey: credentials["youtube-scraper-3"] }); crawler3.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler4 = new Crawler({ crawlerId: 4, apiKey: credentials["youtube-scraper-4"] }); crawler4.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler5 = new Crawler({ crawlerId: 5, apiKey: credentials["youtube-scraper-5"] }); crawler5.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler6 = new Crawler({ crawlerId: 6, apiKey: credentials["youtube-scraper-6"] }); crawler6.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler7 = new Crawler({ crawlerId: 7, apiKey: credentials["youtube-scraper-7"] }); crawler7.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler8 = new Crawler({ crawlerId: 8, apiKey: credentials["youtube-scraper-8"] }); crawler8.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler9 = new Crawler({ crawlerId: 9, apiKey: credentials["youtube-scraper-9"] }); crawler9.run() }, Math.random() * 2000)
-// setTimeout(() => { let crawler10 = new Crawler({ crawlerId: 10, apiKey: credentials["youtube-scraper-10"] }); crawler10.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler2 = new Crawler({ crawlerId: 2, apiKey: credentials["youtube-scraper-2"] }); crawler2.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler3 = new Crawler({ crawlerId: 3, apiKey: credentials["youtube-scraper-3"] }); crawler3.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler4 = new Crawler({ crawlerId: 4, apiKey: credentials["youtube-scraper-4"] }); crawler4.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler5 = new Crawler({ crawlerId: 5, apiKey: credentials["youtube-scraper-5"] }); crawler5.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler6 = new Crawler({ crawlerId: 6, apiKey: credentials["youtube-scraper-6"] }); crawler6.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler7 = new Crawler({ crawlerId: 7, apiKey: credentials["youtube-scraper-7"] }); crawler7.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler8 = new Crawler({ crawlerId: 8, apiKey: credentials["youtube-scraper-8"] }); crawler8.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler9 = new Crawler({ crawlerId: 9, apiKey: credentials["youtube-scraper-9"] }); crawler9.run() }, Math.random() * 2000)
+setTimeout(() => { let crawler10 = new Crawler({ crawlerId: 10, apiKey: credentials["youtube-scraper-10"] }); crawler10.run() }, Math.random() * 2000)
 //
 // setTimeout(() => { let crawler1 = new Crawler({ crawlerId: 11, apiKey: credentials["youtube-scraper-1"] }); crawler1.run() }, Math.random() * 2000)
 // setTimeout(() => { let crawler2 = new Crawler({ crawlerId: 12, apiKey: credentials["youtube-scraper-2"] }); crawler2.run() }, Math.random() * 2000)
