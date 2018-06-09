@@ -5,7 +5,7 @@ async function start () {
 
   let bulk = db.collection('channel_info').initializeOrderedBulkOp()
   let counter = 0
-  db.collection('channel_info').find().forEach(data => {
+  db.collection('channel_info').find().sort({_id: -1}).forEach(data => {
     bulk.find({
       "_id": data._id
     }).update({"$set": {
