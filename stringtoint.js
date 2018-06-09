@@ -1,4 +1,4 @@
-const mongo = require('/mongo.js')
+const mongo = require('./mongo.js')
 
 async function start () {
   let db = mongo.getDB()
@@ -16,6 +16,7 @@ async function start () {
 
     counter++
     if (counter % 1000 == 0) {
+      console.log('execute ', counter)
       bulk.execute()
       bulk = db.channel_info.initializeOrderedBulkOp()
     }
