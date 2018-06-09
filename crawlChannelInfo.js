@@ -21,7 +21,7 @@ class Crawler {
 
   async mongoGetNextChannel () {
     let db = await mongo.getDB()
-    let response = await db.collection('crawled').findOneAndUpdate({crawledChannelInfo: false}, {$set: {crawledChannelInfo: true}})
+    let response = await db.collection('crawled').findOneAndUpdate({crawledChannelInfo: {$exists: false}}, {$set: {crawledChannelInfo: true}})
     let channelId = response.value.channelId
     if (typeof channelId === 'undefined') throw "channelId empty"
     return channelId
