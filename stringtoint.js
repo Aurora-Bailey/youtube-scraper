@@ -1,7 +1,7 @@
 const mongo = require('./mongo.js')
 
 async function start () {
-  let db = mongo.getDB()
+  let db = await mongo.getDB()
 
   let bulk = db.collection('channel_info').initializeOrderedBulkOp()
   let counter = 0
