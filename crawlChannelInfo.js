@@ -42,6 +42,9 @@ class Crawler {
 
   async mongoSetChannelInfo (channelId, info) {
     let db = await mongo.getDB()
+    if (info && info.statistics && info.statistics.viewCount) info.statistics.viewCount = parseInt(info.statistics.viewCount)
+    if (info && info.statistics && info.statistics.subscriberCount) info.statistics.subscriberCount = parseInt(info.statistics.subscriberCount)
+    if (info && info.statistics && info.statistics.videoCount) info.statistics.videoCount = parseInt(info.statistics.videoCount)
     db.collection('channel_info').insertOne({channelId, crawlDate: Date.now(), info})
   }
 
