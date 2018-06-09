@@ -3,9 +3,9 @@ const mongo = require('./mongo.js')
 async function start () {
   let db = mongo.getDB()
 
-  let bulk = db.channel_info.initializeOrderedBulkOp()
+  let bulk = db.collection('channel_info').initializeOrderedBulkOp()
   let counter = 0
-  db.channel_info.find().forEach(data => {
+  db.collection('channel_info').find().forEach(data => {
     bulk.find({
       "_id": data._id
     }).update({"$set": {
@@ -18,7 +18,7 @@ async function start () {
     if (counter % 1000 == 0) {
       console.log('execute ', counter)
       bulk.execute()
-      bulk = db.channel_info.initializeOrderedBulkOp()
+      bulk = db.collection('channel_info').initializeOrderedBulkOp()
     }
   })
   // Add the rest in the queue
