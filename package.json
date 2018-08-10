@@ -20,6 +20,6 @@
   "dependencies": {
     "chalk": "^2.4.1",
     "googleapis": "^31.0.2",
-    "mongodb": "^3.1.0-beta4"
+    "mongodb": "^3.1.1"
   }
 }
